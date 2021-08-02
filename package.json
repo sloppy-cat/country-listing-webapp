@@ -1,0 +1,35 @@
+{
+  "name": "country-listing-webapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "NODE_ENV=production webpack --progress --stats-error-details"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sloppy-cat/country-listing-webapp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sloppy-cat/country-listing-webapp/issues"
+  },
+  "homepage": "https://github.com/sloppy-cat/country-listing-webapp#readme",
+  "dependencies": {
+    "@types/react": "^17.0.15",
+    "@types/react-dom": "^17.0.9",
+    "@types/webpack": "^5.28.0",
+    "html-webpack-plugin": "^5.3.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "ts-loader": "^9.2.4",
+    "typescript": "^4.3.5"
+  },
+  "devDependencies": {
+    "webpack-cli": "^4.7.2"
+  }
+}
