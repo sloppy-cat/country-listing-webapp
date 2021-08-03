@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Country, countryAttribute, countryAttributeOrderKr } from '../@lib/type'
-import { addCountry, countryListSelector, fetchCountryList, getCountryList, sortCountryList } from '../features/countryList/countryListSlice'
+import { addCountry, countryListSelector, getCountryList, sortCountryList } from '../features/countryList/countryListSlice'
 import { listSortSelector, setListSort } from '../features/listSort/listSortSlice'
 import CountryCreateBox from './CountryCreateBox'
 import CountryRow from './CountryRow'
@@ -66,11 +66,11 @@ const CountryTable: FC = () => {
           <CountryCreateBox register={register}/>
           {countryList.map(
             (country: Country, index: number) => (
-              country.alpha2Code.includes(keyword) ||
+              country.alpha2Code.toUpperCase().includes(keyword) ||
               country.callingCodes?.[0].includes(keyword) ||
-              country.capital.includes(keyword) ||
-              country.name.includes(keyword) ||
-              country.region.includes(keyword) 
+              country.capital.toUpperCase().includes(keyword) ||
+              country.name.toUpperCase().includes(keyword) ||
+              country.region.toUpperCase().includes(keyword) 
             ) && <CountryRow key={index} country={country} index={index}/>
           )}
         </tbody>

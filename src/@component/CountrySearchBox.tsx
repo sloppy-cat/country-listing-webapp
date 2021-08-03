@@ -1,12 +1,12 @@
 import React, { FC } from 'react'
 import { useDispatch } from 'react-redux'
-import { setListSearch } from '../features/listSearch/listSearchSlice'
+import { getListSearch } from '../features/listSearch/listSearchSlice'
 
 const CountrySearchBox: FC = ({}) => {
   const dispatch = useDispatch()
-
+  
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    dispatch(setListSearch(event.currentTarget.value))
+    dispatch(getListSearch(event.currentTarget.value))
   }
 
   return (

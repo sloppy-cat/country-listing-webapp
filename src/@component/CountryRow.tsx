@@ -1,4 +1,4 @@
-import React, { ReactNode, FC } from 'react'
+import React, { FC } from 'react'
 import { useDispatch } from 'react-redux'
 import { Country, countryAttributeOrderKr } from '../@lib/type'
 import { removeCountry } from '../features/countryList/countryListSlice'
