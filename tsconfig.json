@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "./disk",
+    "outDir": "./output",
     "target": "es6",
     "module": "es6",
     "moduleResolution": "node",
@@ -15,6 +15,5 @@
     "allowSyntheticDefaultImports": true
   },
   "compileOnSave": false,
-  "exclude": ["node_modules"],
-  "include": ["src"]
+  "exclude": ["node_modules", "output"],
 }

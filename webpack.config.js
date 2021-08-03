@@ -18,7 +18,7 @@ module.exports = {
     ],
   },
   output: {
-    path: path.resolve(__dirname, 'disk'),
+    path: path.resolve(__dirname, 'output'),
   },
   plugins: [
     new HtmlWebpackPlugin({
