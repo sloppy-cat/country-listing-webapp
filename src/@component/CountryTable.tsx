@@ -7,6 +7,7 @@ import CountryCreateBox from './CountryCreateBox'
 import CountryRow from './CountryRow'
 import { SubmitHandler, useForm } from "react-hook-form"
 import { listSearchSelector } from '../features/listSearch/listSearchSlice'
+import styled from 'styled-components' 
 
 const CountryTable: FC = () => {
   const dispatch = useDispatch()
@@ -57,7 +58,7 @@ const CountryTable: FC = () => {
         <thead>
           <tr>
             {countryAttributeOrderKr.map((value, index) => <th key={index} >
-              <div onClick={handleClickAttribute} id={value.key}>{value.value}{sortedBy === value.key ? order === 'asc'? '▲' : '▼' : ''}</div>
+              <AttributeButton onClick={handleClickAttribute} id={value.key}>{value.value}{sortedBy === value.key ? order === 'asc'? '▲' : '▼' : ''}</AttributeButton>
             </th>)}
             <th/>
           </tr>
@@ -80,3 +81,7 @@ const CountryTable: FC = () => {
 }
 
 export default CountryTable
+
+const AttributeButton = styled.div`
+  cursor: pointer;
+`
