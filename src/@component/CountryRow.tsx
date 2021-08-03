@@ -20,9 +20,8 @@ const CountryRow: FC<CountryRowProps> = ({country, index}) => {
       {countryAttributeOrderKr.map((value, index)=>
         <td key={index}>{value.key !== 'callingCodes' ? country[value.key] : country.callingCodes?.[0] }</td>
       )}
-      <td><button onClick={handleRemoveCountry}>삭제</button></td>
+      <td><div onClick={handleRemoveCountry}>삭제</div></td>
     </tr>
   )
 }
-
 export default CountryRow
