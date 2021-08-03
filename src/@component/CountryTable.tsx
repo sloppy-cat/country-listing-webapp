@@ -5,7 +5,7 @@ import { addCountry, countryListSelector, getCountryList, sortCountryList } from
 import { listSortSelector, setListSort } from '../features/listSort/listSortSlice'
 import CountryCreateBox from './CountryCreateBox'
 import CountryRow from './CountryRow'
-import { SubmitHandler, useForm } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import { listSearchSelector } from '../features/listSearch/listSearchSlice'
 import styled from 'styled-components' 
 
@@ -37,15 +37,19 @@ const CountryTable: FC = () => {
   }
 
   function onSubmitCountry(data: formData, event: React.BaseSyntheticEvent<object, any, any>) {
-    console.log(data)
-    event.target.reset()
-    dispatch(addCountry({
-      alpha2Code: data.alpha2Code,
-      capital: data.capital,
-      name: data.name,
-      region: data.region,
-      callingCodes: [data.callingCodes]
-    }))
+    data.alpha2Code.toUpperCase()
+    if (/^[A-Z]{2,2}$/.test(data.alpha2Code) && countryList.findIndex((value)=> value.alpha2Code === data.alpha2Code) === -1) {
+      event.target.reset()
+      dispatch(addCountry({
+        alpha2Code: data.alpha2Code,
+        capital: data.capital,
+        name: data.name,
+        region: data.region,
+        callingCodes: [data.callingCodes]
+      }))
+    } else {
+      alert('중복되지 않은 알파벳2글자 코드를 입력해주세요')
+    }
   }
 
   return loading? (
@@ -57,7 +61,7 @@ const CountryTable: FC = () => {
       <table>
         <thead>
           <tr>
-            {countryAttributeOrderKr.map((value, index) => <th key={index} >
+            {countryAttributeOrderKr.map((value) => <th key={value.key} >
               <AttributeButton onClick={handleClickAttribute} id={value.key}>{value.value}{sortedBy === value.key ? order === 'asc'? '▲' : '▼' : ''}</AttributeButton>
             </th>)}
             <th/>
@@ -72,7 +76,7 @@ const CountryTable: FC = () => {
               country.capital.toUpperCase().includes(keyword) ||
               country.name.toUpperCase().includes(keyword) ||
               country.region.toUpperCase().includes(keyword) 
-            ) && <CountryRow key={index} country={country} index={index}/>
+            ) && <CountryRow key={country.alpha2Code} country={country} index={index}/>
           )}
         </tbody>
       </table>
