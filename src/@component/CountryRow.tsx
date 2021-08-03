@@ -1,6 +1,6 @@
 import React, { ReactNode, FC } from 'react'
 import { useDispatch } from 'react-redux'
-import { Country } from '../@lib/type'
+import { Country, countryAttributeOrderKr } from '../@lib/type'
 import { removeCountry } from '../features/countryList/countryListSlice'
 
 interface CountryRowProps {
@@ -14,15 +14,13 @@ const CountryRow: FC<CountryRowProps> = ({country, index}) => {
   function handleRemoveCountry() {
     dispatch(removeCountry(index))
   }
-  
+
   return (
     <tr>
-      <td>{country.alpha2Code}</td>
-      <td>{country.capital}</td>
-      <td>{country.name}</td>
-      <td>{country.region}</td>
-      <td>{country.callingCodes?.[0]}</td>
-      <td onClick={handleRemoveCountry}>삭제</td>
+      {countryAttributeOrderKr.map((value, index)=>
+        <td key={index}>{value.key !== 'callingCodes' ? country[value.key] : country.callingCodes?.[0] }</td>
+      )}
+      <td><button onClick={handleRemoveCountry}>삭제</button></td>
     </tr>
   )
 }

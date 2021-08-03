@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { Country } from '../../@lib/type'
+import { ListSortState } from '../listSort/listSortSlice'
 
 interface CountryListState {
   countryList: Country[]
@@ -39,10 +40,15 @@ const countryListSlice = createSlice({
     },
     removeCountry(state, action: PayloadAction<number>) {
       state.countryList = state.countryList.filter((_, index) => index !== action.payload)
+    },
+    sortCountryList(state, action: PayloadAction<ListSortState>) {
+      state.countryList.sort((a, b) => {
+        return a[action.payload.sortedBy] > b[action.payload.sortedBy] ? action.payload.order === 'desc' ? -1 : 0 : action.payload.order === 'desc' ? 0 : -1
+      })
     }
   },
 })
 export const countryListSelector = (state: {[countryListSlice.name]: CountryListState}) => state[countryListSlice.name]
 export const countryList = countryListSlice.name
-export const { getCountryList, setCountryList, failedCountryList, addCountry, removeCountry} = countryListSlice.actions
+export const { getCountryList, setCountryList, failedCountryList, addCountry, removeCountry, sortCountryList} = countryListSlice.actions
 export default countryListSlice.reducer

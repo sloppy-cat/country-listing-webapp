@@ -1,34 +1,38 @@
 import React, { FC, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Country } from '../@lib/type'
+import { Country, countryAttribute, countryAttributeOrderKr } from '../@lib/type'
 import { useCountryList } from '../@lib/utilCountry'
-import { countryListSelector, fetchCountryList, getCountryList } from '../features/countryList/countryListSlice'
+import { countryListSelector, fetchCountryList, getCountryList, sortCountryList } from '../features/countryList/countryListSlice'
+import { listSortSelector, setListSort } from '../features/listSort/listSortSlice'
 import CountryCreateBox from './CountryCreateBox'
 import CountryRow from './CountryRow'
 
 
 const CountryTable: FC = () => {
-  // const countryList1 = useSelector(countryListSelector)
   const dispatch = useDispatch()
   const {countryList, loading, error} = useSelector(countryListSelector)
+  const {sortedBy, order} = useSelector(listSortSelector)
   useEffect(() => {
     dispatch(getCountryList())
-    console.log(countryList)
   }, [])
+  useEffect(() => {
+    dispatch(sortCountryList({sortedBy, order}))
+  }, [sortedBy, order])
+  function handleClickAttribute(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    dispatch(setListSort(event.currentTarget.value as countryAttribute))
+    
+  }
+
   return loading? (
     <div>
-      로딩중
+      LOADING
     </div>
   ) : (
     <div>
       <table>
         <thead>
           <tr>
-            <th>코드</th>
-            <th>수도</th>
-            <th>이름</th>
-            <th>대륙</th>
-            <th>국가 전화번호</th>
+            {countryAttributeOrderKr.map((value, index) => <th key={index} ><button onClick={handleClickAttribute} value={value.key}>{value.value}{sortedBy === value.key ? order === 'asc'? '▲' : '▼' : ''}</button></th>)}
             <th/>
           </tr>
         </thead>
